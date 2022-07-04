@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useRef, useState} from "react";
+import './styles/App.css'
+import PostItem from "./Component/PostItem";
+import PostList from "./Component/PostList";
+import MyButton from "./Component/UI/button/MyButton";
+import MyInput from "./Component/UI/input/MyInput";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [posts, setPosts] = useState([
+        {id: 1, title: 'Javascript', body: 'Description'},
+        {id: 2, title: 'Javascript 2', body: 'Description'},
+        {id: 3, title: 'Javascript 3', body: 'Description'},
+    ])
+
+    const [post, setPost] = useState({title: '', body: ''})
+
+    const addNewPost = (e) => {
+        e.preventDefault()
+
+
+        setPosts([...posts, {...post, id: Date.now()}])
+        setPost({title: '', body: ''})
+
+    }
+
+    return (
+        <div className="App">
+            <form>
+                <MyInput
+                    value={post.title}
+                    onChange={e => setPost({...post, title: e.target.value})}
+                    type="text"
+                    placeholder="Название поста"/>
+                <MyInput
+                    value={post.body}
+                    onChange={e => setPost({...post, body: e.target.value})}
+                    type="text"
+                    placeholder="Описание поста"/>
+                <MyButton onClick={addNewPost} >Создать пост</MyButton>
+            </form>
+
+           <PostList posts={posts} title="Посты про JS"/>
+        </div>
+    );
 }
 
 export default App;
