@@ -20,8 +20,9 @@ function App() {
         setPosts(posts.filter((p, i) => p.id !== post.id))
     }
 
-    const sortPosts = sort => {
+    const sortPosts = (sort) => {
         setSelectedSort(sort)
+        console.log(sort)
         setPosts([...posts].sort((a,b) => a[sort].localeCompare(b[sort])))
     }
 
@@ -34,9 +35,9 @@ function App() {
                 <MySelect
                     value={selectedSort}
                     onChange={sortPosts}
-                    defaultValue="сортировка"
+                    defaultValue="Сортировка"
                     option={[
-                        {value: 'tttle', name: 'По названию'},
+                        {value: 'title', name: 'По названию'},
                         {value: 'body', name: 'По описанию'}
                     ]}/>
             </div>
